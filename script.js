@@ -1,66 +1,25 @@
-//Welcome page with message and start button
+//Timer
+// Declare a variable to select the HTML element to update the timer
+let timer = document.querySelector("#timer");
 
-//Q&A page
+// Declare a variable for amount of time left in quiz
+let secondsLeft = 60;
 
-var currentQuestion = 0;
-var timer = 75;
-
-var questions = [
-  {
-    text: "Is coding fun?",
-    answers: ["Yes", "No"],
-    correctAnswer: "Yes",
-  },
-  {
-    text: "Is coding fun?",
-    answers: ["Yes", "No"],
-    correctAnswer: "Yes",
-  },
-  {
-    text: "Is coding fun?",
-    answers: ["Yes", "No"],
-    correctAnswer: "Yes",
-  },
-  {
-    text: "Is coding fun?",
-    answers: ["Yes", "No"],
-    correctAnswer: "Yes",
-  },
-  {
-    text: "Is coding fun?",
-    answers: ["Yes", "No"],
-    correctAnswer: "Yes",
-  },
-];
-
-var questionText = questions[currentQuestion].text;
-var answers = questions[currentQuestion].answers;
-var correctAnswer = questions[currentQuestion].correctAnswer;
-
-document.querySelector("#startButton").addEventListener("click", function () {
-  document.querySelector("#welcomeDiv").classList.add("hide");
-  document.querySelector("#questionsDiv").innerHTML +=
-    "<h3>Question #1</h3><h5>" + questionText + "</h5><div id='answers'></div>";
-  for (var i = 0; i < answers.length; i++) {
-    document.querySelector("#answers").innerHTML +=
-      "<button class='answerButton'>" + answers[i] + "</button>";
-  }
-  document
-    .querySelector(".answerButton")
-    .addEventListener("click", function () {});
-});
-
-//When submitted, if answer correct, currentQuestion++ if wrong timer -10 seconds
-
-function userAnswer() {
-  var correctAnswer = questions[currentIndex].correctAnswer;
-  var outcome = document.getElementById("outcome");
-  if (Answers === correctAnswer) {
-    outcome.innerHTML = "Correct!";
-    return currentQuestion++;
-  } else {
-    outcome.innerHTML = "Wrong!";
-    timer = timer - 10;
-    currentQuestion++;
-  }
+// Timer function
+function quizTimer() {
+  let timerInterval = setInterval(function () {
+    // Subtract 1 second every interval
+    secondsLeft = secondsLeft - 1;
+    // Update the local storage to the new time
+    localStorage.setItem("time", secondsLeft);
+    // Update the text on the HTML page
+    timer.textContent = "Time: " + secondsLeft;
+    // If time reaches 0 you are redirected to a new page
+    if (secondsLeft === 0) {
+      window.location.href = "score.html";
+    }
+  }, 1000);
 }
+
+// Call the quizTimer function
+quizTimer();
